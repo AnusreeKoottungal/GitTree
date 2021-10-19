@@ -6,6 +6,7 @@ function Node(props) {
   let [treeMap, setTreeMap] = useState(TreeMap(props.level, props.data));
   let [expanded, setExpanded] = useState(props.isExpanded);
   const expand = () => {
+    //TODO - Handle pagination
     fetch(treeMap.fetchURL).then((result) => {
       result.json().then((data) => {
         setData(data);
