@@ -14,6 +14,7 @@ function Search(props) {
           <input
             className="form-control"
             type="search"
+            placeholder="username"
             onChange={(e) => {
               setSearchKey(e.target.value);
             }}
