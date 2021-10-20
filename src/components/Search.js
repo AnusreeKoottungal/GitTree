@@ -1,10 +1,12 @@
 import { useState } from "react";
 function Search(props) {
   let [searchKey, setSearchKey] = useState("");
+  let [searchDisabled, setSearchDisabled] = useState(true);
   let onClick = () => {
-    if (searchKey !== null && searchKey !== undefined && searchKey !== "") {
-      console.log(searchKey);
-      props.onClick(searchKey);
+    if (searchKey !== null && searchKey !== undefined) {
+      let searchTerm = searchKey.trim();
+      if(searchTerm !== "")
+      props.onClick(searchTerm);
     }
   };
   return (
@@ -16,12 +18,13 @@ function Search(props) {
             type="search"
             placeholder="username"
             onChange={(e) => {
+              setSearchDisabled(!(e.target.value && e.target.value.trim() !== ""));
               setSearchKey(e.target.value);
             }}
           ></input>
         </div>
         <div className="col-md-4">
-          <button className="btn btn-primary" onClick={onClick}>
+          <button disabled={searchDisabled} className="btn btn-primary" onClick={onClick}>
             Search
           </button>
         </div>
