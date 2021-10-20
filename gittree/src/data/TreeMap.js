@@ -26,5 +26,7 @@ export default function TreeMap(level, data) {
       };
     case 3:
       return { level: 4, type: "file", dataField: "filename" };
+    default:
+      return {};
   }
 }

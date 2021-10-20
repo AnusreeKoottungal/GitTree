@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "font-awesome/css/font-awesome.min.css";
 import TreeMap from "../data/TreeMap";
 function Node(props) {
   let [data, setData] = useState(null);
   let [treeMap, setTreeMap] = useState(TreeMap(props.level, props.data));
   let [expanded, setExpanded] = useState(props.isExpanded);
+
+  useEffect(()=>{
+    setTreeMap(TreeMap(props.level, props.data))
+    setExpanded(false);
+  },[props.data, props.level])
   const expand = () => {
     fetch(treeMap.fetchURL).then((result) => {
       result.json().then((data) => {
@@ -30,7 +35,7 @@ function Node(props) {
                 </div>
               )}
               {props.type !== "file" && (
-                <a className="btn" onClick={expand}>
+                <button className="btn" onClick={expand}>
                   {expanded ? (
                     <i
                       className={
@@ -46,7 +51,7 @@ function Node(props) {
                       aria-hidden="true"
                     ></i>
                   )}
-                </a>
+                </button>
               )}
             </div>
             <div className="col-md-11 mt-2">{props.data[props.dataField]}</div>
